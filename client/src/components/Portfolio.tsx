@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 export default function Portfolio() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 2;
-  const carouselRef = useRef(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const portfolioItems = [
     [
@@ -129,7 +129,7 @@ export default function Portfolio() {
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="flex"
-              style={{ width: `${totalSlides * 100}%` }}
+              style={{ width: `${totalSlides * 100}%` } as React.CSSProperties}
             >
               {portfolioItems.map((slide, slideIndex) => (
                 <div 
