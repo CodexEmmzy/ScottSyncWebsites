@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 export default function Portfolio() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 2;
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef(null);
 
   const portfolioItems = [
     [
@@ -43,64 +44,156 @@ export default function Portfolio() {
     }
   }, [currentSlide]);
 
+  // Animation variants for heading
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  // Animation variants for images
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    visible: (i: any) => ({
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: i * 0.2,
+        ease: "easeOut"
+      }
+    }),
+    hover: {
+      scale: 1.05,
+      y: -5,
+      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+      transition: { duration: 0.3 }
+    }
+  };
+
+  // Animation variants for buttons
+  const buttonVariants = {
+    initial: { scale: 1 },
+    hover: { 
+      scale: 1.1,
+      backgroundColor: "#ffffff",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+      transition: { duration: 0.2, type: "spring", stiffness: 300 }
+    },
+    tap: { scale: 0.95 }
+  };
+
+  // Animation variants for link
+  const linkVariants = {
+    initial: { x: 0 },
+    hover: { 
+      x: 4,
+      transition: { duration: 0.2 }
+    }
+  };
+
   return (
     <section className="py-16 md:py-24" id="portfolio">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#1F2937] mb-4 font-space">Our Portfolio</h2>
-          <p className="text-lg text-[#1F2937]/70 max-w-2xl mx-auto">
+          <motion.h2
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-3xl md:text-4xl font-semibold text-[#1F2937] mb-4 font-space"
+          >
+            Our Portfolio
+          </motion.h2>
+          <motion.p
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.2 }}
+            className="text-lg text-[#1F2937]/70 max-w-2xl mx-auto"
+          >
             Check out some of our recent projects for local businesses
-          </p>
+          </motion.p>
         </div>
 
         <div className="relative overflow-hidden">
-          <div 
-            ref={carouselRef}
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ width: `${totalSlides * 100}%` }}
-          >
-            {portfolioItems.map((slide, slideIndex) => (
-              <div 
-                key={slideIndex} 
-                className="min-w-full px-4"
-                style={{ width: `${100 / totalSlides}%` }}
-              >
-                <div className="grid md:grid-cols-2 gap-8">
-                  {slide.map((item, itemIndex) => (
-                    <img 
-                      key={itemIndex}
-                      src={item.image} 
-                      alt={item.alt} 
-                      className="rounded-xl shadow-lg w-full h-64 md:h-80 object-cover" 
-                    />
-                  ))}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              ref={carouselRef}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="flex"
+              style={{ width: `${totalSlides * 100}%` }}
+            >
+              {portfolioItems.map((slide, slideIndex) => (
+                <div 
+                  key={slideIndex} 
+                  className="min-w-full px-4"
+                  style={{ width: `${100 / totalSlides}%` }}
+                >
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {slide.map((item, itemIndex) => (
+                      <motion.img
+                        key={itemIndex}
+                        src={item.image}
+                        alt={item.alt}
+                        custom={itemIndex}
+                        variants={imageVariants}
+                        initial="hidden"
+                        animate="visible"
+                        whileHover="hover"
+                        className="rounded-xl shadow-lg w-full h-64 md:h-80 object-cover"
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Carousel Controls */}
-          <button 
-            type="button" 
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md"
+          <motion.button
+            type="button"
+            variants={buttonVariants}
+            initial="initial"
+            whileHover="hover"
+            whileTap="tap"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md"
             onClick={prevSlide}
           >
             <ChevronLeft className="h-6 w-6 text-[#1F2937]" />
-          </button>
-          <button 
-            type="button" 
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md"
+          </motion.button>
+          <motion.button
+            type="button"
+            variants={buttonVariants}
+            initial="initial"
+            whileHover="hover"
+            whileTap="tap"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md"
             onClick={nextSlide}
           >
             <ChevronRight className="h-6 w-6 text-[#1F2937]" />
-          </button>
+          </motion.button>
         </div>
 
         <div className="text-center mt-12">
-          <a href="#contact" className="inline-flex items-center text-[#3B82F6] hover:text-[#3B82F6]/80 font-medium">
+          <motion.a
+            href="#contact"
+            className="inline-flex items-center text-[#3B82F6] font-medium"
+            initial="initial"
+            whileHover="hover"
+          >
             See More Work
-            <ArrowRight className="h-5 w-5 ml-1" />
-          </a>
+            <motion.div variants={linkVariants}>
+              <ArrowRight className="h-5 w-5 ml-1" />
+            </motion.div>
+          </motion.a>
         </div>
       </div>
     </section>
