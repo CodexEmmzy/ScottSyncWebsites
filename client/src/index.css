@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&family=Pacifico&family=Fira+Mono:wght@400;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -25,21 +25,21 @@
   --destructive-foreground: 210 40% 98%;
   --ring: 215 20.2% 65.1%;
   --radius: 0.5rem;
-  
+
   /* ScottSync Colors */
   --primary-color: 215 22% 15%;
   --secondary-color: 217 91% 60%;
   --accent-color: 210 20% 98%;
   --cta-color: 160 84% 39%;
   --highlight-color: 214 32% 91%;
-  
+
   /* Chart colors (keeping original) */
   --chart-1: 20 14.3% 4.1%;
   --chart-2: 210 40% 96.1%;
   --chart-3: 217.2 91.2% 59.8%;
   --chart-4: 160 84% 39%;
   --chart-5: 214 32% 91%;
-  
+
   /* Sidebar colors (keeping original) */
   --sidebar-background: 0 0% 100%;
   --sidebar-foreground: 20 14.3% 4.1%;
@@ -79,24 +79,50 @@
   }
 
   body {
-    @apply bg-white text-[#1F2937] font-inter antialiased;
+    @apply bg-white text-[#1F2937] font-sans antialiased;
+    background: linear-gradient(120deg, #f1f5f9 0%, #e2e8f0 100%);
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-space;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-tight;
+    letter-spacing: -0.01em;
+  }
+  code,
+  pre {
+    @apply font-mono text-creative-blue;
   }
 }
 
 @layer utilities {
   .font-inter {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
-  
   .font-space {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
   }
-  
+  .font-creative {
+    font-family: "Pacifico", cursive;
+  }
+  .font-mono {
+    font-family: "Fira Mono", monospace;
+  }
   .bg-gradient {
-    background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  }
+  .shadow-creative {
+    box-shadow: 0 8px 32px 0 rgba(58, 129, 191, 0.15);
+  }
+  .shadow-neon {
+    box-shadow: 0 0 8px #3b82f6, 0 0 16px #10b981;
+  }
+  .rounded-creative {
+    border-radius: 2rem 0.5rem 2rem 0.5rem/0.5rem 2rem 0.5rem 2rem;
+  }
+  .animate-creative-float {
+    animation: creative-float 2.5s ease-in-out infinite;
   }
 }

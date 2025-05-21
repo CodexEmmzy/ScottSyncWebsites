@@ -97,23 +97,23 @@ export default function Portfolio() {
   };
 
   return (
-    <section className="py-16 md:py-24" id="portfolio">
+    <section className="py-20 md:py-28 bg-[#18181b] text-white" id="portfolio">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2
             variants={textVariants}
             initial="hidden"
             animate="visible"
-            className="text-3xl md:text-4xl font-semibold text-[#1F2937] mb-4 font-space"
+            className="text-4xl md:text-5xl font-bold font-display tracking-tight mb-4"
           >
-            Our Portfolio
+            <span className="text-creative-yellow font-creative drop-shadow-lg">Our Portfolio</span>
           </motion.h2>
           <motion.p
             variants={textVariants}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.2 }}
-            className="text-lg text-[#1F2937]/70 max-w-2xl mx-auto"
+            className="text-lg text-white/80 max-w-2xl mx-auto"
           >
             Check out some of our recent projects for local businesses
           </motion.p>
@@ -139,17 +139,24 @@ export default function Portfolio() {
                 >
                   <div className="grid md:grid-cols-2 gap-8">
                     {slide.map((item, itemIndex) => (
-                      <motion.img
+                      <motion.div
                         key={itemIndex}
-                        src={item.image}
-                        alt={item.alt}
                         custom={itemIndex}
                         variants={imageVariants}
                         initial="hidden"
                         animate="visible"
                         whileHover="hover"
-                        className="rounded-xl shadow-lg w-full h-64 md:h-80 object-cover"
-                      />
+                        className="rounded-creative shadow-creative w-full h-64 md:h-80 overflow-hidden bg-[#232326] group hover:shadow-neon transition-all duration-300"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          className="w-full h-full object-cover group-hover:scale-105 group-hover:rotate-1 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 left-3 bg-creative-yellow text-[#18181b] text-xs px-3 py-1 rounded-full shadow-creative font-mono uppercase tracking-wide">
+                          {item.alt}
+                        </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -164,10 +171,10 @@ export default function Portfolio() {
             initial="initial"
             whileHover="hover"
             whileTap="tap"
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-creative-yellow/90 text-[#18181b] rounded-full p-2 shadow-creative hover:bg-yellow-400 transition"
             onClick={prevSlide}
           >
-            <ChevronLeft className="h-6 w-6 text-[#1F2937]" />
+            <ChevronLeft className="h-6 w-6" />
           </motion.button>
           <motion.button
             type="button"
@@ -175,17 +182,17 @@ export default function Portfolio() {
             initial="initial"
             whileHover="hover"
             whileTap="tap"
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-creative-yellow/90 text-[#18181b] rounded-full p-2 shadow-creative hover:bg-yellow-400 transition"
             onClick={nextSlide}
           >
-            <ChevronRight className="h-6 w-6 text-[#1F2937]" />
+            <ChevronRight className="h-6 w-6" />
           </motion.button>
         </div>
 
         <div className="text-center mt-12">
           <motion.a
             href="#contact"
-            className="inline-flex items-center text-[#3B82F6] font-medium"
+            className="inline-flex items-center font-bold text-creative-yellow hover:text-yellow-400 font-display text-lg drop-shadow-lg transition-colors"
             initial="initial"
             whileHover="hover"
           >

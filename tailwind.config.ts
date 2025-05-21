@@ -4,11 +4,23 @@ export default {
   darkMode: ["class"],
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+      display: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
+      mono: ["Fira Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+      creative: ["Pacifico", "cursive"],
+    },
     extend: {
       borderRadius: {
+        xl: "1.25rem",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        creative: "2rem 0.5rem 2rem 0.5rem/0.5rem 2rem 0.5rem 2rem",
+      },
+      boxShadow: {
+        creative: "0 8px 32px 0 rgba(58, 129, 191, 0.15)",
+        neon: "0 0 8px #3B82F6, 0 0 16px #10B981",
       },
       colors: {
         background: "hsl(var(--background))",
@@ -61,8 +73,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        creative: {
+          blue: "#3B82F6",
+          green: "#10B981",
+          purple: "#8B5CF6",
+          yellow: "#FACC15",
+          pink: "#EC4899",
+        },
       },
       keyframes: {
+        "creative-float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
         "accordion-down": {
           from: {
             height: "0",
@@ -83,6 +106,8 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "creative-float": "creative-float 2.5s ease-in-out infinite",
+        "creative-pulse": "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },
